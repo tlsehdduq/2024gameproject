@@ -1,6 +1,6 @@
 #include <windows.h>
-#include<iostream>
-#include"resource.h"
+#include <iostream>
+#include "resource.h"
 HINSTANCE hInst;
 
 TCHAR lpszClass[] = TEXT("크레이지 아케이드");
@@ -63,55 +63,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_PAINT:
-		/** 더블버퍼링 시작처리입니다. **/
-		static HDC hdc, MemDC, tmpDC;
-		static HBITMAP BackBit, oldBackBit;
-		static RECT bufferRT;
-		hdc = BeginPaint(hwnd, &ps);
-
-		GetClientRect(hwnd, &bufferRT);
-		MemDC = CreateCompatibleDC(hdc);
-		BackBit = CreateCompatibleBitmap(hdc, bufferRT.right, bufferRT.bottom);
-		oldBackBit = (HBITMAP)SelectObject(MemDC, BackBit);
-		PatBlt(MemDC, 0, 0, bufferRT.right, bufferRT.bottom, WHITENESS);
-		tmpDC = hdc;
-		hdc = MemDC;
-		MemDC = tmpDC;
-		memdc = CreateCompatibleDC(hdc);
-
-		MyBrush = CreateSolidBrush(RGB(0, 0, 0));
-		bBrush = CreateSolidBrush(RGB(255, 255, 255));
-		bpen = CreatePen(PS_SOLID, 2, RGB(255, 255, 255));
-		wpen = CreatePen(PS_SOLID, 2, RGB(0, 0, 0));
-
-		SelectObject(memdc, introbmp);
-		StretchBlt(hdc, 0, 0, 1000, 1000, memdc, 0, 0, 1440, 1440, SRCCOPY);
-
-		DeleteObject(MyBrush);
-		DeleteObject(OldBrush);
-		DeleteObject(bBrush);
-		DeleteObject(pbrush);
-
-		/** 더블버퍼링 끝처리 입니다. **/
-		tmpDC = hdc;
-		hdc = MemDC;
-		MemDC = tmpDC;
-		GetClientRect(hwnd, &bufferRT);
-		BitBlt(hdc, 0, 0, bufferRT.right, bufferRT.bottom, MemDC, 0, 0, SRCCOPY);
-		SelectObject(MemDC, oldBackBit);
-		DeleteObject(BackBit);
-		DeleteDC(MemDC);
+		hdc = BeginPaint(hwnd, &ps); 
+		memdc = CreateCompatibleDC(hdc); 
+		SelectObject(memdc, introbmp); 
+		StretchBlt(hdc, 0, 0, 1100,900, memdc, 0, 0, 1200,930, SRCCOPY);
+		//--- 메모리 DC에 있는 그림에서 (0, 0)위치에서 (320, 240) 크기의 그림을
+		//--- 화면의 (100, 0)위치에 (160, 120) 크기로 이미지 색 그대로 그리기
+		DeleteDC(memdc);
 		EndPaint(hwnd, &ps);
 		break;
-
-	case WM_KEYDOWN:
-
-		InvalidateRect(hwnd, NULL, FALSE);
-		break;
-	case WM_KEYUP:
-		break;
-	case WM_DESTROY:
-		KillTimer(hwnd, 1);
 	}
 	return DefWindowProc(hwnd, iMsg, wParam, lParam);
 }

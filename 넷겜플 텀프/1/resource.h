@@ -1,6 +1,5 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++에서 생성한 포함 파일입니다.
-// 짱짱멋진 경서의 인버서스.rc에서 사용되고 있습니다.
 //
 #define IDB_BITMAP1                     101
 #define IDB_BITMAP2                     102
