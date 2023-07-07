@@ -1,6 +1,6 @@
 #include <windows.h>
 #include <iostream>
-#include "resource.h"
+#include "resource1.h"
 HINSTANCE hInst;
 
 TCHAR lpszClass[] = TEXT("크레이지 아케이드");
@@ -28,7 +28,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 		WndClass.style = CS_HREDRAW | CS_VREDRAW;
 		RegisterClass(&WndClass);
 	}
-	hWnd = CreateWindow(lpszClass, lpszClass, WS_OVERLAPPEDWINDOW, 0, 0, 1100, 900, NULL, (HMENU)NULL, hInstance, NULL);
+	hWnd = CreateWindow(lpszClass, lpszClass, WS_OVERLAPPEDWINDOW, 0, 0, 1200, 1100, NULL, (HMENU)NULL, hInstance, NULL);
 	ShowWindow(hWnd, nCmdShow);
 
 	while (GetMessage(&Message, 0, 0, 0)) {
@@ -38,11 +38,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	return Message.wParam;
 }
 
+bool IsGameStart = false;
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 {
 	PAINTSTRUCT ps;
 	HDC hdc = 0, memdc = 0;
-	static HBITMAP helpbmp, introbmp, oldBit;
+	static HBITMAP helpbmp, introBmp, oldBit, runningBmp;
 	static bool intro, help, game, unbeatable;
 	static int px, py;
 	static RECT player;
@@ -56,21 +58,39 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 	static int ENEMY, ecount;
 	static int level, linex, liney;
 
-
 	switch (iMsg) {
 	case WM_CREATE:
-		introbmp = (HBITMAP)LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP1));
+		introBmp = (HBITMAP)LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP1));
+		runningBmp = (HBITMAP)LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP3));
 		break;
 
 	case WM_PAINT:
 		hdc = BeginPaint(hwnd, &ps); 
 		memdc = CreateCompatibleDC(hdc); 
-		SelectObject(memdc, introbmp); 
-		StretchBlt(hdc, 0, 0, 1100,900, memdc, 0, 0, 1200,930, SRCCOPY);
-		//--- 메모리 DC에 있는 그림에서 (0, 0)위치에서 (320, 240) 크기의 그림을
-		//--- 화면의 (100, 0)위치에 (160, 120) 크기로 이미지 색 그대로 그리기
+
+		// 게임의 스타트 상태에 따라 출력되는 비트맵 달라지도록 함
+		if (IsGameStart == false)
+		{
+			SelectObject(memdc, introBmp);
+			StretchBlt(hdc, 0, 0, 1100, 900, memdc, 0, 0, 1200, 900, SRCCOPY);
+		}
+		else
+		{
+			SelectObject(memdc, runningBmp);
+			StretchBlt(hdc, 0, 0, 1100, 900, memdc, 0, 0, 800, 600, SRCCOPY);
+		}
+
 		DeleteDC(memdc);
 		EndPaint(hwnd, &ps);
+		break;
+
+	case WM_KEYDOWN:
+		if (wParam == VK_F1)
+		{
+			IsGameStart = true;
+			// 화면이 다시 그려지도록 하는 함수, WM_PAINT 다시 호출해줌
+			InvalidateRect(hwnd, NULL, TRUE);
+		}
 		break;
 	}
 	return DefWindowProc(hwnd, iMsg, wParam, lParam);

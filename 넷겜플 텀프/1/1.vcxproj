@@ -130,6 +130,8 @@
     <ClCompile Include="소스.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\크아 리소스 모음\Logo\Logo.bmp" />
+    <Image Include="..\크아 리소스 모음\UI\Ggomul2Back.bmp" />
     <Image Include="bitmap1.bmp" />
   </ItemGroup>
   <ItemGroup>
