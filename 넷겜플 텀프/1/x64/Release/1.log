@@ -1,9 +1,10 @@
 ﻿  소스.cpp
-C:\2024gameproject\넷겜플 텀프\1\소스.cpp(38,16): warning C4244: 'return': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\2024gameproject\넷겜플 텀프\1\소스.cpp(52,8): warning C4101: 'out' :참조되지 않은 지역 변수입니다.
-C:\2024gameproject\넷겜플 텀프\1\소스.cpp(51,8): warning C4101: 'lpout' :참조되지 않은 지역 변수입니다.
+C:\2024gameproject\넷겜플 텀프\1\소스.cpp(50,19): warning C4244: 'return': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\2024gameproject\넷겜플 텀프\1\소스.cpp(17,5): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\2024gameproject\넷겜플 텀프\1\소스.cpp(67,11): warning C4101: 'out' :참조되지 않은 지역 변수입니다.
+C:\2024gameproject\넷겜플 텀프\1\소스.cpp(66,11): warning C4101: 'lpout' :참조되지 않은 지역 변수입니다.
   코드를 생성하고 있습니다.
-  2 of 2 functions (100.0%) were compiled.
+  2 of 12 functions (16.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
