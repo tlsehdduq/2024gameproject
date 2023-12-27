@@ -1,5 +1,0 @@
-﻿  소스.cpp
-C:\2024gameproject\넷겜플 텀프\1\소스.cpp(42,16): warning C4244: 'return': 'WPARAM'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\2024gameproject\넷겜플 텀프\1\소스.cpp(54,8): warning C4101: 'out' :참조되지 않은 지역 변수입니다.
-C:\2024gameproject\넷겜플 텀프\1\소스.cpp(53,8): warning C4101: 'lpout' :참조되지 않은 지역 변수입니다.
-  1.vcxproj -> C:\2024gameproject\넷겜플 텀프\1\x64\Debug\1.exe
